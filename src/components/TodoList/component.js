@@ -11,25 +11,35 @@ class TodoList extends Component {
     }
     renderList() {
         return this.props.todos.map((item, i) => {
-            return <div className="todo__item" key={i}>
-            {item}
+            return <div className="todo__item" key={item.id}>
+            {item.text}
             </div>
         });
+    }
+    renderButtons() {
+
+        const { loadTodos, currentPage } = this.props;
+
+        return (
+            <div className="todo__buttons">
+                <strong>{currentPage}</strong>
+                <button onClick={() => loadTodos(currentPage - 1)}>PREV</button>
+                <button onClick={() => loadTodos(currentPage + 1)}>NEXT</button>
+            </div>
+        );
     }
   render() {
     return (
       <div className="todo">
         {this.renderList()}
-        <button onClick={() => this.props && this.props.increase()}>+</button>
-        {this.props.counter}
+        {this.renderButtons()}
     </div>
     );
   }
 }
 
 TodoList.defaultProps = {
-    todos: [],
-    counter: 0
+    todos: []
 };
 
 export default TodoList;

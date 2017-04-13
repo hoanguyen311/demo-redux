@@ -1,22 +1,20 @@
 import { connect } from 'react-redux';
 import Component from './component';
-import { loadTodos, increase } from '../../actions';
+import { loadTodos } from '../../actions';
+import { getAllTodosByPage, requestNextPage } from '~/reducers/todos';
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadTodos: function() {
-            dispatch(loadTodos())
-        },
-        increase: function() {
-            dispatch(increase());
+        loadTodos: function(page) {
+            dispatch(loadTodos(page))
         }
     }
 }
 
 function mapStateToProps(state) {
     return {
-        todos: state.todos,
-        counter: state.counter
+        todos: getAllTodosByPage(state.todos),
+        currentPage: state.todos.currentPage
     };
 }
 
